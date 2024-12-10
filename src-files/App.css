@@ -1,0 +1,107 @@
+a {
+  text-decoration: none;
+}
+a:link {
+  color: rgb(255, 200, 0);
+}
+
+/* visited link */
+a:visited {
+  color: green;
+}
+
+/* mouse over link */
+a:hover {
+  color: hotpink;
+}
+
+body {
+  font-family: "Roboto", sans-serif;
+  margin: 10;
+  margin-left: 10px;
+}
+.navigation {
+  background-color: #9cb380;
+  height: 75px;
+  font-weight: bolder;
+  color: #522a27;
+}
+.footer {
+  display: flex;
+  background-color: #9cb380;
+  height: 300px;
+  color: #522a27;
+  justify-content: center;
+  align-items: center;
+  font-weight: bolder;
+  flex-shrink: 0;
+  text-align: center;
+  padding: 20px;
+  background-color: #f1f1f1;
+}
+.socialmedia {
+  width: 100px;
+  height: 100px;
+}
+
+.userImage {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+}
+.userInfos {
+  padding: 20px;
+  text-align: center;
+}
+
+.main {
+  flex-grow: 1;
+  min-height: 500px;
+}
+
+.error {
+  color: red;
+  font-size: small;
+}
+
+.qty_input {
+  width: 50px;
+  margin: 5px;
+}
+
+.header {
+  display: flex;
+  justify-content: flex-end; /* Aligns the content to the right */
+  background-color: #f8f9fa; /* Optional background color */
+  padding: 10px 20px; /* Optional padding */
+  height: 100px;
+}
+
+.header .nav {
+  display: flex;
+}
+
+.header .nav-item {
+  margin-left: 20px; /* Adds space between the items */
+}
+
+.header .nav-link {
+  text-decoration: none; /* Removes underline from links */
+  color: #000; /* Link color */
+}
+.img-small {
+  width: 50px;
+  height: 50px;
+}
+.img-big {
+  width: 100px;
+  height: 100px;
+}
+.banner {
+  width: 100%;
+}
+.adminPage {
+  background-color: #fc9e3a;
+  text-align: center;
+  margin-bottom: 10px;
+}
