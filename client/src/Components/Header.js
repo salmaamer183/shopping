@@ -5,10 +5,14 @@ import { useDispatch } from "react-redux";
 import { persistore } from "../Store/store";
 import { resetStore } from "../Store/store";
 import { logout } from "../Features/UserSlice";
+import { getCart } from "../Features/CartSlice";
+import { useEffect } from "react";
 
 const Header = () => {
   const user = useSelector((state) => state.users.user);
+  const cart = useSelector((state) => state.cart);
 
+  console.log(cart);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -19,9 +23,17 @@ const Header = () => {
     //ensure that the state update from the logout action has been processed before proceeding to the next step.
     await new Promise((resolve) => setTimeout(resolve, 100));
 
-    navigate("/"); //redirect to login page route.
+    navigate("/login"); //redirect to login page route.
   };
 
+  useEffect(() => {
+    if (!user.email) {
+      navigate("/login");
+    } else {
+      console.log("Test");
+      // dispatch(getCart(user._id));
+    }
+  }, [user]);
   return (
     <>
       <Navbar className="header">
@@ -41,11 +53,13 @@ const Header = () => {
               </Link>
             </NavItem>
           )}
-          <NavItem className="nav-item">
-            <Link to="/cart" className="nav-link">
-              Cart
-            </Link>
-          </NavItem>
+          {user.userType !== "admin" && (
+            <NavItem className="nav-item">
+              <Link to="/cart" className="nav-link">
+                Cart {cart.count}
+              </Link>
+            </NavItem>
+          )}
           <NavItem className="nav-item">
             <Link onClick={handlelogout} className="nav-link">
               Logout

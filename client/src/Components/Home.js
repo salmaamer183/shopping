@@ -8,14 +8,13 @@ import { useEffect } from "react";
 
 const Home = () => {
   const user = useSelector((state) => state.users.user); //from Redux Store
-  const email = useSelector((state) => state.users.user.email);
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (!email) {
+    if (!user.email) {
       navigate("/login");
     }
-  }, [email]);
+  }, [user]);
   return (
     <Container fluid>
       <Row>

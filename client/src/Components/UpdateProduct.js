@@ -15,33 +15,34 @@ import * as yup from "yup";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useSelector, useDispatch } from "react-redux";
-import {
-  updateProduct,
-} from "../Features/ProductSlice";
+import { updateProduct } from "../Features/ProductSlice";
 import { productSchemaValidation } from "../Validations/ProductValidations";
-import { Link, useParams } from "react-router-dom";
+import { createRoutesFromChildren, Link, useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 
 const UpdateProduct = () => {
-  const products = useSelector((state) => state.products.value);
+  const products = useSelector((state) => state.products.allProducts);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const { prod_id } = useParams();
+  console.log(prod_id);
 
   // Function to search for a product by ID
-  const  findProductById= (productId) => {
-    return products.find((product) => product.id == productId);
-  }
+  const findProductById = (prod_id) => {
+    return products.find((product) => product._id == prod_id);
+  };
   //This is the product object that is to be updated as return by the find
   const productToUpdate = findProductById(prod_id);
 
   console.log(productToUpdate);
   //Set the value from the productoupdate object as initial value of the state
-  const [id, setProductName] = useState(productToUpdate.id);
+  const [pcode, setPcode] = useState(productToUpdate.pcode);
+  const [desc, setDesc] = useState(productToUpdate.desc);
   const [price, setPrice] = useState(productToUpdate.price);
-  const [title, setTitle] = useState(productToUpdate.title);
-  const [image, setImage] = useState(productToUpdate.images);
+  const [image, setImage] = useState(productToUpdate.image);
+  const [stocks, setStocks] = useState(productToUpdate.stocks);
+
   //For form validation using react-hook-form
   const {
     register,
@@ -50,41 +51,38 @@ const UpdateProduct = () => {
   } = useForm({
     resolver: yupResolver(productSchemaValidation), //Associate your Yup validation schema using the resolver
   });
+  // console.log("Validation Errors", errors);
 
   // Handle form submission
-  const handleUpdate = (data) => {
+  const onSubmit = (data) => {
     try {
       // You can handle the form submission here
       let tax = 0;
-      if (data.price<200){
-        tax = 0;
-      }
-      else if (data.price >= 200 && data.price <= 500) {
-        tax = data.price * 10;
+      if (data.price >= 200 && data.price <= 500) {
+        tax = data.price * 0.1;
       } else if (data.price > 501 && data.price <= 1000) {
-        tax = data.price * 20;
+        tax = data.price * 0.2;
+      } else if (data.price > 1000) {
+        tax = data.price * 0.5;
       } else {
-        tax = data.price * 0.25;
+        tax = 0;
       }
 
       const productData = {
-        id: data.id,
-        title: data.title,
+        pcode: data.pcode,
+        desc: data.desc,
         price: data.price + tax,
-        images: data.image,
+        image: data.image,
+        stocks: data.stocks,
       };
 
       console.log("Form Data", data);
+      dispatch(updateProduct({ productData, prod_id }));
       alert("Product Updated.");
-      dispatch(updateProduct(productData));
-      navigate("/manage"); //redirect to the /manage route
     } catch (error) {
       console.log("Error.");
     }
   };
-
-
-
   return (
     <Container fluid>
       <Row>
@@ -98,37 +96,37 @@ const UpdateProduct = () => {
           <h4>Update Product</h4>
 
           {/* Execute first the submitForm function and if validation is good execute the handleSubmit function */}
-          <form onSubmit={handleSubmit(handleUpdate)}>
+          <form onSubmit={handleSubmit(onSubmit)}>
             <div></div>
             <section>
               <div className="form-group">
                 <input
                   className="form-control"
-                  placeholder="Product id..."
-                  value={id}
-                  {...register("id", {
-                    onChange: (e) => setProductName(e.target.value),
+                  placeholder="Product Code..."
+                  value={pcode}
+                  {...register("pcode", {
+                    onChange: (e) => setPcode(e.target.value),
                   })}
                 />
 
-                <p className="error">{errors.id?.message}</p>
-              </div>
-              <div className="form-group">
-                <input
-                  type="title"
-                  className="form-control"
-                  id="title"
-                  placeholder="Title..."
-                  value={title}
-                  {...register("title", {
-                    onChange: (e) => setTitle(e.target.value),
-                  })}
-                />
-                <p className="error">{errors.title?.message}</p>
+                <p className="error">{errors.pcode?.message}</p>
               </div>
               <div className="form-group">
                 <input
                   type="text"
+                  className="form-control"
+                  id="desc"
+                  placeholder="Product Description..."
+                  value={desc}
+                  {...register("desc", {
+                    onChange: (e) => setDesc(e.target.value),
+                  })}
+                />
+                <p className="error">{errors.desc?.message}</p>
+              </div>
+              <div className="form-group">
+                <input
+                  type="number"
                   className="form-control"
                   id="price"
                   placeholder="Price..."
@@ -140,6 +138,8 @@ const UpdateProduct = () => {
                 <p className="error">{errors.price?.message}</p>
               </div>
               <div className="form-group">
+                <img src={image} className="userImage center" alt="User" />
+
                 <input
                   type="text"
                   className="form-control"
@@ -150,10 +150,23 @@ const UpdateProduct = () => {
                     onChange: (e) => setImage(e.target.value),
                   })}
                 />
-                <p className="error">{errors.price?.message}</p>
+                <p className="error">{errors.image?.message}</p>
               </div>
-              <Button color="primary" className="button">
-                Update Product
+              <div className="form-group">
+                <input
+                  type="number"
+                  className="form-control"
+                  id="stock"
+                  placeholder="Number of stocks..."
+                  value={stocks}
+                  {...register("stocks", {
+                    onChange: (e) => setStocks(e.target.value),
+                  })}
+                />
+                <p className="error">{errors.stocks?.message}</p>
+              </div>
+              <Button color="primary" className="button" type="submit">
+                Save Product
               </Button>
             </section>
           </form>

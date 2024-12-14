@@ -75,86 +75,89 @@ const Register = () => {
   };
 
   return (
-    <Container fluid>
-      <Row>
-        <Col md={5} className="center">
-          {/*           <img src={logo} className="center" />
-           */}{" "}
-        </Col>
-      </Row>
-      <Row>
-        <Col md={5} className="center">
-          {/* Execute first the submitForm function and if validation is good execute the handleSubmit function */}
-          <form onSubmit={handleSubmit(onSubmit)}>
-            <section>
-              <div>
-                <FormGroup>
-                  <Label for="name">Name</Label>
-                  <input
-                    type="text"
-                    className="form-control"
-                    id="name"
-                    placeholder="Enter your name..."
-                    {...register("name", {
-                      onChange: (e) => setname(e.target.value),
-                    })}
-                  />
-                  <p className="error">{errors.name?.message}</p>
-                </FormGroup>
-              </div>
+    <Container>
+      <div className="register">
+        <Row>
+          <Col md={12}>
+            <div>
+              <h2>Jasmine's Online Shop</h2>
+            </div>
+          </Col>
+        </Row>
+        <Row>
+          <Col md={12}>
+            {/* Execute first the submitForm function and if validation is good execute the handleSubmit function */}
+            <form onSubmit={handleSubmit(onSubmit)}>
+              <section>
+                <div>
+                  <FormGroup>
+                    <Label for="name">Name</Label>
+                    <input
+                      type="text"
+                      className="form-control"
+                      id="name"
+                      placeholder="Enter your name..."
+                      {...register("name", {
+                        onChange: (e) => setname(e.target.value),
+                      })}
+                    />
+                    <p className="error">{errors.name?.message}</p>
+                  </FormGroup>
+                </div>
 
-              <div className="form-group">
+                <div className="form-group">
+                  <FormGroup>
+                    <Label for="email">Email</Label>
+                    <input
+                      type="text"
+                      className="form-control"
+                      id="email"
+                      placeholder="Enter your email..."
+                      {...register("email", {
+                        onChange: (e) => setemail(e.target.value),
+                      })}
+                    />
+                    <p className="error">{errors.email?.message}</p>
+                  </FormGroup>
+                </div>
+                <div className="form-group">
+                  <FormGroup>
+                    <Label for="password">Password</Label>
+                    <input
+                      type="password"
+                      className="form-control"
+                      id="password"
+                      placeholder="Enter your password..."
+                      {...register("password", {
+                        onChange: (e) => setpassword(e.target.value),
+                      })}
+                    />
+                    <p className="error">{errors.password?.message}</p>
+                  </FormGroup>
+                </div>
+                <div className="form-group">
+                  <FormGroup>
+                    <Label for="Confirm">Confirm Password</Label>
+                    <input
+                      type="password"
+                      className="form-control"
+                      id="confirmPassword"
+                      placeholder="Confirm your password..."
+                      {...register("confirmPassword", {
+                        onChange: (e) => setconfirmPassword(e.target.value),
+                      })}
+                    />
+                    <p className="error">{errors.confirmPassword?.message}</p>
+                  </FormGroup>
+                </div>
                 <FormGroup>
-                  <Label for="email">Email</Label>
-                  <input
-                    type="text"
-                    className="form-control"
-                    id="email"
-                    placeholder="Enter your email..."
-                    {...register("email", {
-                      onChange: (e) => setemail(e.target.value),
-                    })}
-                  />
-                  <p className="error">{errors.email?.message}</p>
+                  <Button className="button">Register</Button>
                 </FormGroup>
-              </div>
-              <div className="form-group">
-                <FormGroup>
-                  <Label for="password">Password</Label>
-                  <input
-                    type="password"
-                    className="form-control"
-                    id="password"
-                    placeholder="Enter your password..."
-                    {...register("password", {
-                      onChange: (e) => setpassword(e.target.value),
-                    })}
-                  />
-                  <p className="error">{errors.password?.message}</p>
-                </FormGroup>
-              </div>
-              <div className="form-group">
-                <FormGroup>
-                  <Label for="Confirm">Confirm Password</Label>
-                  <input
-                    type="password"
-                    className="form-control"
-                    id="confirmPassword"
-                    placeholder="Confirm your password..."
-                    {...register("confirmPassword", {
-                      onChange: (e) => setconfirmPassword(e.target.value),
-                    })}
-                  />
-                  <p className="error">{errors.confirmPassword?.message}</p>
-                </FormGroup>
-              </div>
-              <FormGroup>
-                <Button className="button">Register</Button>
-              </FormGroup>
-            </section>
-          </form>
-        </Col>
-      </Row>
+              </section>
+            </form>
+          </Col>
+        </Row>
+      </div>
     </Container>
   );
 };

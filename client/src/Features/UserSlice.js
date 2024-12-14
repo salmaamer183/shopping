@@ -43,7 +43,7 @@ export const login = createAsyncThunk("users/login", async (userData) => {
     });
 
     const user = response.data.user;
-    //console.log(response);
+    console.log(response);
     return user;
   } catch (error) {
     //handle the error
@@ -143,6 +143,7 @@ export const userSlice = createSlice({
         state.user = action.payload; //assign the payload which is the user object return from the server after authentication
         state.isLoading = false;
         state.isSuccess = true;
+        state.isError = false;
       })
       .addCase(login.rejected, (state) => {
         state.isLoading = false;

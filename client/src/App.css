@@ -101,7 +101,39 @@ body {
   width: 100%;
 }
 .adminPage {
-  background-color: #fc9e3a;
-  text-align: center;
+  background-color:#9cb380;
+    text-align: center;
   margin-bottom: 10px;
+}
+.clear{
+  margin: 10px;
+}
+
+.login {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  border: 1px solid #ccc; /* Light gray border */
+  border-radius: 8px; /* Rounded corners */
+  padding: 20px; /* Spacing inside the box */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+  width: 100%;
+  max-width: 400px; /* Optional: Limit the box width */
+  margin: auto; /* Center the box horizontally */
+  background-color: #9cb380; /* Green background */
+  margin-top: 50px; /* Add margin on top */
+  height: 75vh;
+}
+
+.register {
+  display: block;
+  margin: auto;
+  background-color:#9cb380;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+  margin-top: 100px;
+  width: 100%;
+  max-width: 600px; /* Optional: Limit the box width */
+  padding: 20px;
 }

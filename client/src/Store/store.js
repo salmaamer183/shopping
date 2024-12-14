@@ -1,14 +1,13 @@
 import { configureStore, getDefaultMiddleware } from "@reduxjs/toolkit";
-import usersReducer from "../Features/UserSlice";
-/* import postReducer from "../Features/PostSlice";
-import manageUserReducer from "../Features/ManageUserSlice"; */
 import { persistStore, persistReducer } from "redux-persist";
 import storage from "redux-persist/lib/storage"; // Uses localStorage by default
 import { combineReducers } from "redux";
 import { reset as resetUsers } from "../Features/UserSlice";
-/* import { reset as resetPosts } from "../Features/PostSlice";
-import { reset as resetManageUser } from "../Features/ManageUserSlice"; */
+import { reset as resetProducts } from "../Features/ProductSlice";
+import { reset as resetCart } from "../Features/CartSlice";
 import productReducer from "../Features/ProductSlice";
+import usersReducer from "../Features/UserSlice";
+import cartReducer from "../Features/CartSlice";
 
 // Redux Persist config
 const persistConfig = {
@@ -19,9 +18,8 @@ const persistConfig = {
 // Combine all your reducers into one rootReducer
 const rootReducer = combineReducers({
   users: usersReducer, // Manage users slice of the state
-  /*   posts: postReducer, // Manage posts slice of the state
-  manageUsers: manageUserReducer, */
   products: productReducer,
+  cart: cartReducer,
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
@@ -44,8 +42,8 @@ const persistore = persistStore(store); // Create persistore for rehydration
 // Reset all reducers
 const resetStore = () => {
   store.dispatch(resetUsers()); // Reset users state
-  /*   store.dispatch(resetPosts()); // Reset posts state
-  store.dispatch(resetManageUser()); // Reset manage users state */
+  store.dispatch(resetProducts());
+  store.dispatch(resetCart());
 };
 
 export { store, persistore, resetStore };

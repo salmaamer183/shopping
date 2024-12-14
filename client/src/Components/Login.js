@@ -41,9 +41,10 @@ const Login = () => {
 
   useEffect(() => {
     if (isError) {
-      navigate("/");
+      navigate("/login");
     } else if (isSuccess) {
       if (user && user.userType === "user") {
+        console.log("test");
         navigate("/");
       } else {
         navigate("/manage");
@@ -52,59 +53,47 @@ const Login = () => {
   }, [user, isError, isSuccess, navigate]);
 
   return (
-    <div>
-      <Container fluid>
-        <Row>
-          <Col md={4} className="center">
-            {/* <img src={logo} /> */}
-            <h2>Jasmine's Online Shop</h2>
-          </Col>
-        </Row>
+    <Container>
+      <div className="login">
+        <div>
+          <h2>Jasmine's Online Shop</h2>
+        </div>
         <Form>
-          <Row>
-            <Col md={4} className="center">
-              <FormGroup>
-                <Label for="email">Email</Label>
-                <Input
-                  id="email"
-                  name="email"
-                  placeholder="Enter email..."
-                  type="email"
-                  onChange={(e) => setemail(e.target.value)}
-                />
-              </FormGroup>
-            </Col>
-          </Row>
-          <Row>
-            <Col md={4} className="center">
-              <FormGroup>
-                <Label for="password">Password</Label>
-                <Input
-                  id="password"
-                  name="password"
-                  placeholder="Enter password..."
-                  type="password"
-                  onChange={(e) => setpassword(e.target.value)}
-                />
-              </FormGroup>
-            </Col>
-          </Row>
-          <Row>
-            <Col md={4} className="center">
-              <Button onClick={() => handleLogin()} className="button">
-                Login
-              </Button>
-              <p className="smalltext">
-                No Account? <Link to="/register">Sign Up now.</Link>
-              </p>
-            </Col>
-          </Row>
+          <div className="form-group">
+            <FormGroup>
+              <Label for="email">Email</Label>
+              <Input
+                id="email"
+                name="email"
+                placeholder="Enter email..."
+                type="email"
+                onChange={(e) => setemail(e.target.value)}
+              />
+            </FormGroup>
+          </div>
+          <div className="form-group">
+            <FormGroup>
+              <Label for="password">Password</Label>
+              <Input
+                id="password"
+                name="password"
+                placeholder="Enter password..."
+                type="password"
+                onChange={(e) => setpassword(e.target.value)}
+              />
+            </FormGroup>
+          </div>
+          <div className="form-actions">
+            <Button onClick={() => handleLogin()} className="button">
+              Login
+            </Button>
+            <p className="smalltext">
+              No Account? <Link to="/register">Sign Up now.</Link>
+            </p>
+          </div>
         </Form>
-        <Row>
-          <Footer />
-        </Row>
-      </Container>
-    </div>
+      </div>
+    </Container>
   );
 };
 

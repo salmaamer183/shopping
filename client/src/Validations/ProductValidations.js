@@ -2,17 +2,18 @@ import * as yup from "yup";
 
 // Product Schema with Custom Validation Messages
 export const productSchemaValidation = yup.object().shape({
-  id: yup
-    .number()
-    .typeError("ID must be a valid number") // Custom type error for number
-    .required("ID is required"),
-  title: yup
+  pcode: yup
     .string()
-    .min(4, "Title must be at least 4 characters long")
-    .max(20, "Title must not exceed 20 characters")
-    .required("Title is required"),
+    .typeError("Product name must be at least 4 characters long") // Custom type error for number
+    .required("Product name is required"),
+  desc: yup
+    .string()
+    .min(4, "Description must be at least 4 characters long")
+    .required("Description is required"),
+  image: yup.string().required("Image URL is required"),
   price: yup
     .number()
     .typeError("Price must be a valid number") // Custom type error for number
     .required("Price is required"),
+  stocks: yup.number().typeError("Stocks must be a valid number"), // Custom type error for number
 });
