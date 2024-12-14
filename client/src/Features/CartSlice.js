@@ -40,8 +40,9 @@ export const getCart = createAsyncThunk(
   async (userId) => {
     try {
       const response = await axios.get(`${ENV.SERVER_URL}/getCart/${userId}`);
+      console.log(response.data);
+
       return response.data.cart;
-      console.log(response);
     } catch (error) {
       console.log(error);
     }

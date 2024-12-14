@@ -189,6 +189,8 @@ const ManageProducts = () => {
                 <th>Image</th>
                 <th>Description</th>
                 <th>Price</th>
+                <th>Stocks</th>
+
                 <th colSpan={2}>Actions</th>
               </tr>
             </thead>
@@ -206,6 +208,7 @@ const ManageProducts = () => {
                   </td>
                   <td>{product.desc}</td>
                   <td>{Math.round(product.price, 2)}</td>
+                  <td>{product.stocks}</td>
                   <td>
                     <button
                       onClick={() => {

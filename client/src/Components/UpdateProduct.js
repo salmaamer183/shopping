@@ -79,6 +79,7 @@ const UpdateProduct = () => {
       console.log("Form Data", data);
       dispatch(updateProduct({ productData, prod_id }));
       alert("Product Updated.");
+      navigate("/manage");
     } catch (error) {
       console.log("Error.");
     }
@@ -92,7 +93,7 @@ const UpdateProduct = () => {
         </Col>
       </Row>
       <Row>
-        <Col md={4}>
+        <Col md={5}>
           <h4>Update Product</h4>
 
           {/* Execute first the submitForm function and if validation is good execute the handleSubmit function */}

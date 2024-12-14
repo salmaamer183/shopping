@@ -305,6 +305,17 @@ app.post("/addToCart", async (req, res) => {
     }
 
     console.log(product);
+
+    // Check if the quantity requested exceeds the available stock
+    if (product.stocks < quantity) {
+      return res.status(400).json({ message: "Not enough stock available" });
+    } else {
+      // Update the product stock
+      console.log(quantity);
+      product.stocks -= quantity;
+      await product.save();
+    }
+
     // Find or create cart for the user
     let cart = await CartModel.findOne({ userId });
     if (!cart) {
@@ -388,6 +399,16 @@ app.delete("/deleteCartItem/:id", async (req, res) => {
 
     // Remove the item from the items array
     cart.items.splice(itemIndex, 1);
+
+    // Fetch product details
+    const product = await ProductModel.findById(item.productId);
+    if (!product) {
+      return res.status(404).json({ message: "Product not found" });
+    }
+
+    // Update the product stock (increase by the quantity removed)
+    product.stocks += item.quantity;
+    await product.save();
 
     // Save the updated cart
     await cart.save();

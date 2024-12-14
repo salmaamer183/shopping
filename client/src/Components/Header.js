@@ -12,7 +12,7 @@ const Header = () => {
   const user = useSelector((state) => state.users.user);
   const cart = useSelector((state) => state.cart);
 
-  console.log(cart);
+  // console.log(cart.cart);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -30,8 +30,7 @@ const Header = () => {
     if (!user.email) {
       navigate("/login");
     } else {
-      console.log("Test");
-      // dispatch(getCart(user._id));
+      dispatch(getCart(user._id));
     }
   }, [user]);
   return (
